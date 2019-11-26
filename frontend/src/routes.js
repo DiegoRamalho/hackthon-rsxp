@@ -5,7 +5,7 @@ import Step2 from './screens/Step2'
 
 export default createAppContainer(createSwitchNavigator(
   {
-    Home
+    Home,
     Step2
   },
   {

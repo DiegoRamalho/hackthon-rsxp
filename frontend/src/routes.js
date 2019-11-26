@@ -13,6 +13,6 @@ export default createAppContainer(createSwitchNavigator(
     Timeline,
   },
   {
-    initialRouteName: 'Timeline',
+    initialRouteName: 'Home',
   }
 ));

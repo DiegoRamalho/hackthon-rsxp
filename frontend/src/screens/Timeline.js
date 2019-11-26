@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View, Text, ScrollView } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, View, Platform, ScrollView } from "react-native";
 import Card from '../components/card'
 
 import CompanyItem from '../components/companyItem'
@@ -77,7 +77,7 @@ export default function Timeline() {
           showsHorizontalScrollIndicator={false}
         />
       </View>
-      <ScrollView style={S.timelineContainer}>
+      <ScrollView style={S.timelineContainer} showsVerticalScrollIndicator={false}>
         <Card />
         <Card />
         <Card />
@@ -90,7 +90,8 @@ export default function Timeline() {
 
 const S = StyleSheet.create({
   container: {
-    flex: 1
+    flex: 1,
+    marginTop: Platform.OS == 'android' ? 24 : 0
   },
   companyContainer: {
     height: 70,

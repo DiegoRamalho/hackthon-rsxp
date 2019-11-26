@@ -33,13 +33,14 @@ if (!isProduction) {
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://192.168.99.100:27017/vocation');
+  mongoose.connect('mongodb://127.0.0.1:27017/vocation');
   mongoose.set('debug', true);
 }
 
 require('./models/User');
 require('./models/Article');
 require('./models/Comment');
+require('./models/Company');
 
 app.use(require('./routes'));
 

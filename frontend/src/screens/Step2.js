@@ -6,23 +6,32 @@ import {
   View,
   TouchableOpacity
 } from "react-native";
-import { FontAwesome5 } from "@expo/vector-icons";
+import { FontAwesome5, Entypo } from "@expo/vector-icons";
 
 export default function Step2(props) {
   function navigate() {
-    props.navigation.navigate("Timeline");
+    props.navigation.navigate("Step3", {isCorrect: true});
   }
 
   return (
     <SafeAreaView style={S.container}>
       {props.isCorrect ? (
-        <Text style={S.txt1}>
-          Oh, de acordo com seu perfil você realmente parece ser XXXX.
-        </Text>
+        <>
+          <Text style={S.txt1}>
+            Oh, de acordo com seu perfil você realmente parece ser XXXX.
+          </Text>
+          <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
+            <FontAwesome5 name="chevron-right" size={30} />
+          </TouchableOpacity>
+        </>
       ) : (
         <>
           <Text style={S.txt1}>
-            Oh, de acordo com seu perfil você não seria XXXX
+            Oh, de acordo com seu perfil você não seria
+          </Text>
+
+          <Text style={S.txtResult}>
+            XXXXXXXX
           </Text>
 
           <Text style={S.txt2}>Você seria</Text>
@@ -30,11 +39,12 @@ export default function Step2(props) {
           <View style={S.iconResult}>
             <FontAwesome5 name="user-secret" size={50} />
           </View>
+
+          <TouchableOpacity style={S.nextIconContainer} onPress={() => {}}>
+            <Entypo name="back-in-time" size={30} />
+          </TouchableOpacity>
         </>
       )}
-      <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
-        <FontAwesome5 name="chevron-right" size={30} />
-      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -59,7 +69,7 @@ const S = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     marginVertical: 20,
-    paddingHorizontal: 10
+    paddingHorizontal: 10,
   },
   txt2: {
     fontSize: 22,
@@ -68,5 +78,12 @@ const S = StyleSheet.create({
   },
   nextIconContainer: {
     marginTop: 30
-  }
+  },
+  txtResult: {
+    fontSize: 16,
+    fontWeight:"bold",
+    lineHeight: 20,
+    marginVertical: 20,
+    paddingHorizontal: 10,
+  },
 });

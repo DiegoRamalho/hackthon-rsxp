@@ -27,7 +27,7 @@ router.param('comment', function(req, res, next, id) {
   }).catch(next);
 });
 
-router.get('/', false, function(req, res, next) {
+router.get('/', function(req, res, next) {
   var query = {};
   var limit = 20;
   var offset = 0;
@@ -85,7 +85,7 @@ router.get('/', false, function(req, res, next) {
   }).catch(next);
 });
 
-router.get('/feed', false, function(req, res, next) {
+router.get('/feed', function(req, res, next) {
   var limit = 20;
   var offset = 0;
 
@@ -121,7 +121,7 @@ router.get('/feed', false, function(req, res, next) {
   });
 });
 
-router.post('/', false, function(req, res, next) {
+router.post('/', function(req, res, next) {
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
@@ -137,7 +137,7 @@ router.post('/', false, function(req, res, next) {
 });
 
 // return a article
-router.get('/:article', false, function(req, res, next) {
+router.get('/:article', function(req, res, next) {
   Promise.all([
     req.payload ? User.findById(req.payload.id) : null,
     req.article.populate('author').execPopulate()
@@ -149,7 +149,7 @@ router.get('/:article', false, function(req, res, next) {
 });
 
 // update article
-router.put('/:article', false, function(req, res, next) {
+router.put('/:article', function(req, res, next) {
   User.findById(req.payload.id).then(function(user){
     if(req.article.author._id.toString() === req.payload.id.toString()){
       if(typeof req.body.article.title !== 'undefined'){
@@ -178,7 +178,7 @@ router.put('/:article', false, function(req, res, next) {
 });
 
 // delete article
-router.delete('/:article', false, function(req, res, next) {
+router.delete('/:article', function(req, res, next) {
   User.findById(req.payload.id).then(function(user){
     if (!user) { return res.sendStatus(401); }
 
@@ -193,7 +193,7 @@ router.delete('/:article', false, function(req, res, next) {
 });
 
 // Favorite an article
-router.post('/:article/favorite', false, function(req, res, next) {
+router.post('/:article/favorite', function(req, res, next) {
   var articleId = req.article._id;
 
   User.findById(req.payload.id).then(function(user){
@@ -208,7 +208,7 @@ router.post('/:article/favorite', false, function(req, res, next) {
 });
 
 // Unfavorite an article
-router.delete('/:article/favorite', false, function(req, res, next) {
+router.delete('/:article/favorite', function(req, res, next) {
   var articleId = req.article._id;
 
   User.findById(req.payload.id).then(function (user){
@@ -223,7 +223,7 @@ router.delete('/:article/favorite', false, function(req, res, next) {
 });
 
 // return an article's comments
-router.get('/:article/comments', false, function(req, res, next){
+router.get('/:article/comments', function(req, res, next){
   Promise.resolve(req.payload ? User.findById(req.payload.id) : null).then(function(user){
     return req.article.populate({
       path: 'comments',
@@ -244,7 +244,7 @@ router.get('/:article/comments', false, function(req, res, next){
 });
 
 // create a new comment
-router.post('/:article/comments', false, function(req, res, next) {
+router.post('/:article/comments', function(req, res, next) {
   User.findById(req.payload.id).then(function(user){
     if(!user){ return res.sendStatus(401); }
 
@@ -262,7 +262,7 @@ router.post('/:article/comments', false, function(req, res, next) {
   }).catch(next);
 });
 
-router.delete('/:article/comments/:comment', false, function(req, res, next) {
+router.delete('/:article/comments/:comment', function(req, res, next) {
   if(req.comment.author.toString() === req.payload.id.toString()){
     req.article.comments.remove(req.comment._id);
     req.article.save()

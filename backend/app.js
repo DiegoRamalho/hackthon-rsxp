@@ -41,6 +41,7 @@ require('./models/User');
 require('./models/Article');
 require('./models/Comment');
 require('./models/Company');
+require('./models/CompanySchedule');
 
 app.use(require('./routes'));
 

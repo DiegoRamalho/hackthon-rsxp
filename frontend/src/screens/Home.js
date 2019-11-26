@@ -14,7 +14,7 @@ export default function Home(props) {
         <FontAwesome5 name="camera-retro" size={30} />
       </TouchableOpacity>
       <Text style={S.txt}>Tire uma foto para começarmos</Text>
-      <TouchableOpacity style={S.nextIconContainer} onPress={() => {}}>
+      <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
         <FontAwesome5 name="chevron-right" size={30} />
       </TouchableOpacity>
     </SafeAreaView>

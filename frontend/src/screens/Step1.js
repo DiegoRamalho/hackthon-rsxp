@@ -2,7 +2,12 @@ import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
-export default function Step1() {
+export default function Step1(props) {
+
+  function navigate() {
+    props.navigation.navigate('Step2')
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}></View>
@@ -15,7 +20,7 @@ export default function Step1() {
           <Text style={styles.txtTitle}>Hmmmmm</Text>
           <Text style={styles.txt}>Você parece que vai ser XXXX.</Text>
           <Text style={styles.txt}>Vamos conferir?</Text>
-          <TouchableOpacity style={styles.nextIconContainer} onPress={() => {}}>
+          <TouchableOpacity style={styles.nextIconContainer} onPress={() => navigate()}>
             <FontAwesome5 name="chevron-right" size={30} />
           </TouchableOpacity>
         </View>
@@ -44,7 +49,6 @@ const styles = StyleSheet.create({
     marginTop: 40
   },
   bodyContent: {
-    flex: 1,
     alignItems: "center",
     padding: 30
   },
@@ -63,7 +67,6 @@ const styles = StyleSheet.create({
     marginVertical: 20
   },
   navigation: {
-    display: "flex",
     alignItems: "center",
     alignContent: "space-between"
   }

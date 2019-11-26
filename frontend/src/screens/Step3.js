@@ -47,15 +47,6 @@ const S = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  iconResult: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: "#ccc",
-    justifyContent: "center",
-    alignItems: "center",
-    alignContent: "center"
-  },
   txt1: {
     fontSize: 16,
     fontWeight:"bold",
@@ -63,11 +54,6 @@ const S = StyleSheet.create({
     marginVertical: 20,
     paddingHorizontal: 10,
     margin:30
-  },
-  txt2: {
-    fontSize: 22,
-    lineHeight: 20,
-    marginVertical: 20
   },
   nextIconContainer: {
     marginTop: 30

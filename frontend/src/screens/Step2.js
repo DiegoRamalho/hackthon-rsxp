@@ -39,6 +39,7 @@ export default function Step2(props) {
           <View style={S.iconResult}>
             <FontAwesome5 name="user-secret" size={50} />
           </View>
+
           <TouchableOpacity style={S.nextIconContainer} onPress={() => {}}>
             <Entypo name="back-in-time" size={30} />
           </TouchableOpacity>

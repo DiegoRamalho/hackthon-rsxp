@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesome5 } from "@expo/vector-icons";
-import { StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 export default function Step1(props) {
 
@@ -9,7 +9,7 @@ export default function Step1(props) {
   }
 
   return (
-    <View style={S.container}>
+    <SafeAreaView style={S.container}>
       <View style={S.header}></View>
       <Image
         style={S.avatar}
@@ -25,7 +25,7 @@ export default function Step1(props) {
           </TouchableOpacity>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
@@ -65,9 +65,5 @@ const S = StyleSheet.create({
     fontSize: 20,
     lineHeight: 20,
     marginVertical: 20
-  },
-  navigation: {
-    alignItems: "center",
-    alignContent: "space-between"
   }
 });

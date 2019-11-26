@@ -1,49 +1,67 @@
 import React from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View, Text } from "react-native";
+import { FlatList, SafeAreaView, StyleSheet, View, Text, ScrollView } from "react-native";
 import Card from '../components/card'
+
+import CompanyItem from '../components/companyItem'
+
+import companyAvatar from '../../assets/company-avatar.png'
 
 const DATA = [
   {
     id: 1,
     name: "Non Sollicitudin LLC",
     email: "eget.lacus.Mauris@nequesed.org",
-    image: "URL"
+    image: companyAvatar,
+    bio: '',
+    video: ''
   },
   {
     id: 2,
     name: "Scelerisque Dui Suspendisse Company",
     email: "Aenean.sed@tristiqueaceleifend.org",
-    image: "URL"
+    image: companyAvatar,
+    bio: '',
+    video: ''
   },
   {
     id: 3,
     name: "Nascetur Limited",
     email: "lorem.sit.amet@utquam.ca",
-    image: "URL"
+    image: companyAvatar,
+    bio: '',
+    video: ''
   },
   {
     id: 4,
     name: "Non Ltd",
     email: "aliquet.Phasellus@et.ca",
-    image: "URL"
+    image: companyAvatar,
+    bio: '',
+    video: ''
   },
   {
     id: 5,
     name: "A Tortor Incorporated",
     email: "Donec@morbitristiquesenectus.ca",
-    image: "URL"
+    image: companyAvatar,
+    bio: '',
+    video: ''
   },
   {
     id: 6,
     name: "Eget Volutpat Ornare Ltd",
     email: "quis.arcu@eu.com",
-    image: "URL"
+    image: companyAvatar,
+    bio: '',
+    video: ''
   },
   {
     id: 7,
     name: "Dignissim Pharetra PC",
     email: "diam@cubilia.net",
-    image: "URL"
+    image: companyAvatar,
+    bio: '',
+    video: ''
   }
 ];
 
@@ -53,13 +71,19 @@ export default function Timeline() {
       <View style={S.companyContainer}>
         <FlatList
           data={DATA}
-          renderItem={({ item }) => <Text key={item.id}>{item.name}</Text>}
-          keyExtractor={item => item.id}
+          renderItem={({ item }) => <CompanyItem item={item} />}
+          keyExtractor={item => String(item.id)}
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
         />
       </View>
-      <View style={S.timelineContainer}>
+      <ScrollView style={S.timelineContainer}>
         <Card />
-      </View>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -69,9 +93,15 @@ const S = StyleSheet.create({
     flex: 1
   },
   companyContainer: {
-    flex: 1
+    height: 70,
+    backgroundColor: '#3498ff',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   timelineContainer: {
-    flex: 2
+    flex: 2,
+    marginHorizontal: 15,
+    marginTop: 15
   }
 });

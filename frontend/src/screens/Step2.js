@@ -10,7 +10,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function Step2(props) {
   function navigate() {
-    props.navigation.navigate("Step3");
+    props.navigation.navigate("Timeline");
   }
 
   return (

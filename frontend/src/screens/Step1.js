@@ -9,18 +9,18 @@ export default function Step1(props) {
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}></View>
+    <View style={S.container}>
+      <View style={S.header}></View>
       <Image
-        style={styles.avatar}
+        style={S.avatar}
         source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
       />
-      <View style={styles.body}>
-        <View style={styles.bodyContent}>
-          <Text style={styles.txtTitle}>Hmmmmm</Text>
-          <Text style={styles.txt}>Você parece que vai ser XXXX.</Text>
-          <Text style={styles.txt}>Vamos conferir?</Text>
-          <TouchableOpacity style={styles.nextIconContainer} onPress={() => navigate()}>
+      <View style={S.body}>
+        <View style={S.bodyContent}>
+          <Text style={S.txtTitle}>Hmmmmm</Text>
+          <Text style={S.txt}>Você parece que vai ser XXXX.</Text>
+          <Text style={S.txt}>Vamos conferir?</Text>
+          <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
             <FontAwesome5 name="chevron-right" size={30} />
           </TouchableOpacity>
         </View>
@@ -29,7 +29,7 @@ export default function Step1(props) {
   );
 }
 
-const styles = StyleSheet.create({
+const S = StyleSheet.create({
   header: {
     backgroundColor: "#00BFFF",
     height: 200

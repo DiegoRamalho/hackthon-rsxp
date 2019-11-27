@@ -4,21 +4,21 @@ import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function Card({ post }) {
 
-  function like(post) {
-
-  }
-
   return (
     <View style={S.container}>
       <View style={S.infoContainer}>
-        <Image style={S.imgAvatar} source={{ uri: 'https://api.adorable.io/avatars/100/user-avatar.png' }} />
-        <Text style={S.txtComent}>Seu amigo Emanoel irá fazer uma visita a Google.</Text>
+        <Image style={S.imgAvatar} source={{ uri: post.user.image }} />
+        <Text style={S.txtComent}>{post.mensage}</Text>
       </View>
       <View style={S.btnContainer}>
-        <TouchableOpacity onPress={() => like(post)} style={{marginRight: 10}}>
+        <TouchableOpacity
+          style={S.iconsContainer}
+          onPress={() => {}}
+          style={{ marginRight: 10 }}
+        >
           <FontAwesome5 name="heart" size={23} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => {}}>
+        <TouchableOpacity style={S.iconsContainer} onPress={() => {}}>
           <FontAwesome5 name="comment" size={23} color="#fff" />
         </TouchableOpacity>
       </View>
@@ -31,11 +31,11 @@ const S = StyleSheet.create({
     padding: 15,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#999',
+    borderColor: "#999",
     marginBottom: 6
   },
   infoContainer: {
-    flexDirection: 'row',
+    flexDirection: "row"
   },
   imgAvatar: {
     width: 40,
@@ -44,13 +44,16 @@ const S = StyleSheet.create({
     marginRight: 10
   },
   btnContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    marginTop: 15,
+    flexDirection: "row",
+    justifyContent: "flex-end",
+    marginTop: 15
   },
-  txtComent:{
-    color:"#fff",
+  txtComent: {
+    color: "#fff",
     flex: 1,
-    flexWrap: 'wrap'
+    flexWrap: "wrap"
+  },
+  iconsContainer: {
+    flexDirection: "row",
   }
 });

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  ActivityIndicator,
   View,
   StyleSheet,
   Image,
@@ -10,38 +11,22 @@ import {
   Platform
 } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
-
-import companyAvatar from "../../assets/company-avatar.png";
-
-const DATA = [
-  {
-    id: 1,
-    name: "Projetus TI",
-    email: "test@mail.com",
-    image: companyAvatar,
-    bio: "",
-    video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-  },
-  {
-    id: 2,
-    name: "Projetus TI",
-    email: "test@mail.com",
-    image: companyAvatar,
-    bio: "",
-    video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-  },
-  {
-    id: 3,
-    name: "Projetus TI",
-    email: "test@mail.com",
-    image: companyAvatar,
-    bio:
-      "Much of Video and Audio have common APIs that are documented in AV documentation. This page covers video-specific props and APIs. We encourage you to skim through this document to get basic video working, and then move on to AV documentation for more advanced functionality. The audio experience of video (such as whether to interrupt music already playing in another app, or whether to play sound while the phone is on silent mode) can be customized using the Audio API.",
-    video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
-  }
-];
+import api from "../services/api";
 
 export default function CompanyList(props) {
+  const [companies, setCompanies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    async function getCompanies() {
+      const response = await api.get("/companies");
+      setIsLoading(false);
+      setCompanies(response.data.companies);
+    }
+
+    getCompanies();
+  }, []);
+
   function navigate(company) {
     props.navigation.navigate("CompanyDetail", { company });
   }
@@ -53,7 +38,7 @@ export default function CompanyList(props) {
         style={S.companyContainer}
         onPress={() => navigate(item)}
       >
-        <Image source={item.image} style={S.companyImg} />
+        <Image source={{ uri: item.image }} style={S.companyImg} />
         <View style={S.companyInfo}>
           <Text style={S.companyName}>{item.name}</Text>
           <Text style={S.companyEmail}>{item.email}</Text>
@@ -68,12 +53,16 @@ export default function CompanyList(props) {
       style={{ flex: 1 }}
     >
       <SafeAreaView style={S.container}>
-        <FlatList
-          style={{ flex: 1 }}
-          data={DATA}
-          keyExtractor={item => String(item.id)}
-          renderItem={renderCompany}
-        />
+        {isLoading ? (
+          <ActivityIndicator size="large" color="#fff" />
+        ) : (
+          <FlatList
+            style={{ flex: 1 }}
+            data={companies}
+            keyExtractor={item => String(item.id)}
+            renderItem={renderCompany}
+          />
+        )}
       </SafeAreaView>
     </LinearGradient>
   );
@@ -105,7 +94,7 @@ const S = StyleSheet.create({
   companyName: {
     fontSize: 16,
     color: "#fff",
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   companyEmail: {
     fontSize: 14,

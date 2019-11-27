@@ -1,11 +1,11 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 
-export default function CompanyItem({ item }) {
+export default function CompanyItem({ item, navigate }) {
   return (
-    <View style={S.container}>
-      <Image style={S.img} source={item.image} />
-    </View>
+    <TouchableOpacity style={S.container} onPress={() => navigate}>
+      <Image style={S.img} source={{ uri: item.image }} />
+    </TouchableOpacity>
   );
 }
 

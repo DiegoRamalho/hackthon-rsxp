@@ -1,89 +1,82 @@
-import React from 'react';
-import { FlatList, SafeAreaView, StyleSheet, View, Platform, ScrollView } from "react-native";
-import Card from '../components/card'
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StyleSheet,
+  View,
+  Platform,
+  ScrollView
+} from "react-native";
+import { NavigationActions } from "react-navigation";
+import Card from "../components/card";
+import api from "../services/api";
 
-import CompanyItem from '../components/companyItem'
+import CompanyItem from "../components/companyItem";
 
-import companyAvatar from '../../assets/company-avatar.png'
+export default function Timeline(props) {
+  const [posts, setPosts] = useState([]);
+  const [companies, setCompanies] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-const DATA = [
-  {
-    id: 1,
-    name: "Non Sollicitudin LLC",
-    email: "eget.lacus.Mauris@nequesed.org",
-    image: companyAvatar,
-    bio: '',
-    video: ''
-  },
-  {
-    id: 2,
-    name: "Scelerisque Dui Suspendisse Company",
-    email: "Aenean.sed@tristiqueaceleifend.org",
-    image: companyAvatar,
-    bio: '',
-    video: ''
-  },
-  {
-    id: 3,
-    name: "Nascetur Limited",
-    email: "lorem.sit.amet@utquam.ca",
-    image: companyAvatar,
-    bio: '',
-    video: ''
-  },
-  {
-    id: 4,
-    name: "Non Ltd",
-    email: "aliquet.Phasellus@et.ca",
-    image: companyAvatar,
-    bio: '',
-    video: ''
-  },
-  {
-    id: 5,
-    name: "A Tortor Incorporated",
-    email: "Donec@morbitristiquesenectus.ca",
-    image: companyAvatar,
-    bio: '',
-    video: ''
-  },
-  {
-    id: 6,
-    name: "Eget Volutpat Ornare Ltd",
-    email: "quis.arcu@eu.com",
-    image: companyAvatar,
-    bio: '',
-    video: ''
-  },
-  {
-    id: 7,
-    name: "Dignissim Pharetra PC",
-    email: "diam@cubilia.net",
-    image: companyAvatar,
-    bio: '',
-    video: ''
+  useEffect(() => {
+    async function getCompanies() {
+      const response = await api.get("/companies");
+      setIsLoading(false);
+      setCompanies(response.data.companies);
+    }
+
+    getCompanies();
+  }, []);
+
+  useEffect(() => {
+    async function getPosts() {
+      const response = await api.get("/posts");
+      setPosts(response.data.posts);
+    }
+
+    getPosts();
+  }, []);
+
+  function navigate(company) {
+    props.navigation.navigate(
+      "Company",
+      {},
+      //NavigationActions.navigate({ routeName: "CompanyDetail", params: { company } })
+    );
   }
-];
 
-export default function Timeline() {
   return (
     <SafeAreaView style={S.container}>
-      <View style={S.companyContainer}>
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => <CompanyItem item={item} />}
-          keyExtractor={item => String(item.id)}
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
+      {isLoading ? (
+        <ActivityIndicator
+          size="large"
+          color="#fff"
+          style={{ marginTop: 30 }}
         />
-      </View>
-      <ScrollView style={S.timelineContainer} showsVerticalScrollIndicator={false}>
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-        <Card />
-      </ScrollView>
+      ) : (
+        <>
+          <View style={S.companyContainer}>
+            <FlatList
+              data={companies}
+              renderItem={({ item }) => (
+                <CompanyItem item={item} navigate={() => navigate(item)} />
+              )}
+              keyExtractor={item => String(item.id)}
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+            />
+          </View>
+          <ScrollView
+            style={S.timelineContainer}
+            showsVerticalScrollIndicator={false}
+          >
+            {posts.map(post => (
+              <Card key={post.id} post={post} />
+            ))}
+          </ScrollView>
+        </>
+      )}
     </SafeAreaView>
   );
 }
@@ -91,14 +84,14 @@ export default function Timeline() {
 const S = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Platform.OS == 'android' ? 24 : 0
+    marginTop: Platform.OS == "android" ? 24 : 0
   },
   companyContainer: {
     height: 90,
     paddingVertical: 10,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
   },
   timelineContainer: {
     flex: 2,

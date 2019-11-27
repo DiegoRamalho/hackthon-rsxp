@@ -1,7 +1,8 @@
 import React from 'react'
+import { TouchableOpacity } from 'react-native'
 import { createSwitchNavigator, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Entypo } from "@expo/vector-icons";
 
 import Home from './screens/Home'
 import Step1 from './screens/Step1'
@@ -16,9 +17,14 @@ import CompanyDetail from './screens/CompanyDetail'
 const Company = createStackNavigator({
   CompanyList: {
     screen: CompanyList,
-    navigationOptions: {
-      title: 'Empresas'
-    }
+    navigationOptions: ({ navigation }) => ({
+      title: 'Empresas',
+      headerRight: (
+        <TouchableOpacity onPress={() => navigation.navigate('Timeline')}>
+          <Entypo name="list" size={26} color="#fff" style={{ marginRight: 10 }} />
+        </TouchableOpacity>
+      )
+    }),
   },
   CompanyDetail,
 }, {
@@ -49,6 +55,6 @@ export default createAppContainer(createSwitchNavigator(
     Board,
   },
   {
-    initialRouteName: 'Home',
+    initialRouteName: 'Timeline',
   }
 ));

@@ -5,7 +5,7 @@ import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from "r
 export default function Step1(props) {
   const image = props.navigation.getParam('image')
   function navigate() {
-    props.navigation.navigate('Step2')
+    props.navigation.navigate('Board')
   }
 
   return (

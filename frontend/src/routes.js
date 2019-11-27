@@ -34,6 +34,6 @@ export default createAppContainer(createSwitchNavigator(
     Company
   },
   {
-    initialRouteName: 'Step3',
+    initialRouteName: 'Home',
   }
 ));

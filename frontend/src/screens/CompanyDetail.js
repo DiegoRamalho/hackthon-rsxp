@@ -5,11 +5,13 @@ import {
   Text,
   StyleSheet,
   SafeAreaView,
-  ScrollView
+  ScrollView,
+  Image
 } from "react-native";
 import { Video } from "expo-av";
 import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome5 } from "@expo/vector-icons";
+import calendar from "../../assets/calendar.jpeg";
 
 export default function CompanyDetail(props) {
   const company = props.navigation.getParam("company");
@@ -20,7 +22,9 @@ export default function CompanyDetail(props) {
     >
       <SafeAreaView>
         <Video
-          source={{ uri: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4' }}
+          source={{
+            uri: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
+          }}
           rate={1.0}
           volume={1.0}
           resizeMode="cover"
@@ -34,6 +38,7 @@ export default function CompanyDetail(props) {
           <Text style={S.companyEmail}>{company.email}</Text>
           <ScrollView>
             <Text style={S.companyBio}>{company.bio}</Text>
+            <Image source={calendar} style={{ marginTop: 30, height: 200 }} />
           </ScrollView>
         </View>
         <TouchableOpacity style={S.actBtn} onPress={() => {}}>
@@ -52,7 +57,7 @@ const S = StyleSheet.create({
     fontSize: 20,
     marginBottom: 5,
     color: "#fff",
-    fontWeight: 'bold'
+    fontWeight: "bold"
   },
   companyEmail: {
     fontSize: 18,

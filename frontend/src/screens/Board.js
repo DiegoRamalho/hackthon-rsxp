@@ -11,9 +11,8 @@ import {
 import api from '../services/api'
 
 export default function Board(props) {
-
-  const [data, setData]  = useState(DATA);
-  const [options, setOptions] = useState(DATA.options);
+  const [data, setData]  = useState(null);
+  const [options, setOptions] = useState([]);
 
   useEffect(() => {
     async function getQuestions() {
@@ -41,7 +40,7 @@ export default function Board(props) {
         <View style={styles.containerQuestion}>
           <View style={styles.item}>
             <View style={styles.balloon}>
-              <Text style={styles.txtMsg}>{data.text}</Text>
+              <Text style={styles.txtMsg}>{data ? data.text : null}</Text>
             </View>
           </View>
         </View>

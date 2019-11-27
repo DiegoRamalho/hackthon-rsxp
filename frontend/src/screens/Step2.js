@@ -7,6 +7,7 @@ import {
   TouchableOpacity
 } from "react-native";
 import { FontAwesome5, Entypo } from "@expo/vector-icons";
+import img from '../../assets/img2.jpg'
 
 
 
@@ -46,6 +47,11 @@ export default function Step2(props) {
 
           <Text style={S.txt2}>Você seria</Text>
 
+          <Image
+            style={S.avatar}
+            source={img}
+          />
+
           <View style={S.iconResult}>
             <FontAwesome5 name="user-secret" size={70} />
           </View>
@@ -70,6 +76,15 @@ const S = StyleSheet.create({
     justifyContent: "center"
   },
   iconResult: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center"
+  },
+  avatar: {
     width: 160,
     height: 160,
     borderRadius: 80,

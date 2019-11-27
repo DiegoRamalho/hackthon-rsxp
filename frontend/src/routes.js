@@ -55,6 +55,6 @@ export default createAppContainer(createSwitchNavigator(
     Board,
   },
   {
-    initialRouteName: 'Timeline',
+    initialRouteName: 'Home',
   }
 ));

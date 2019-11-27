@@ -10,7 +10,6 @@ export default function Step1(props) {
   const indice =  Math.floor(1 + Math.random() * 4);
 
   const areaInicial =  areas[indice];
-  //const image = props.navigation.getParam('image')
   function navigate() {
     props.navigation.navigate('Board', {areaInicial: areaInicial})
   }

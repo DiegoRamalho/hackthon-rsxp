@@ -13,11 +13,15 @@ const S = StyleSheet.create({
   container: {
     width: 60,
     height: 60,
-    marginHorizontal: 6
+    marginHorizontal: 6,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   img: {
     width: 60,
     height: 60,
-    borderRadius: 30
+    borderColor: "#ccc",
+    borderWidth: 2,
+    borderRadius: 30,
   }
 })

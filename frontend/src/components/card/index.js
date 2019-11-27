@@ -2,7 +2,12 @@ import React from "react";
 import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export default function Card() {
+export default function Card({ post }) {
+
+  function like(post) {
+
+  }
+
   return (
     <View style={S.container}>
       <View style={S.infoContainer}>
@@ -10,7 +15,7 @@ export default function Card() {
         <Text style={{flex: 1, flexWrap: 'wrap'}}>Seu amigo Emanoel irá fazer uma visita a Google.</Text>
       </View>
       <View style={S.btnContainer}>
-        <TouchableOpacity onPress={() => {}} style={{marginRight: 10}}>
+        <TouchableOpacity onPress={() => like(post)} style={{marginRight: 10}}>
           <FontAwesome5 name="heart" size={23} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {}}>

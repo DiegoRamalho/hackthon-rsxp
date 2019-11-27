@@ -1,22 +1,66 @@
-import React from 'react';
-import { SafeAreaView, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { FontAwesome5 } from '@expo/vector-icons';
+import React, { useEffect, useState } from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Platform,
+  Image,
+  View
+} from "react-native";
+import * as ImagePicker from "expo-image-picker";
+import * as Permissions from "expo-permissions";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function Home(props) {
+  const [image, setImage] = useState(null);
+
+  useEffect(() => {
+    getPermissionAsync = async () => {
+      if (Platform.OS === "ios") {
+        const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+        if (status !== "granted") {
+          alert("Sorry, we need camera roll permissions to make this work!");
+        }
+      }
+    };
+
+    getPermissionAsync();
+  }, []);
 
   function navigate() {
-    props.navigation.navigate('Step1')
+    props.navigation.navigate("Step1", { image });
+  }
+
+  async function pickImage() {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1
+    });
+
+    if (!result.cancelled) {
+      setImage(result.uri);
+    }
   }
 
   return (
     <SafeAreaView style={S.container}>
-      <TouchableOpacity style={S.iconContainer} onPress={() => {}}>
-        <FontAwesome5 name="camera-retro" size={30} />
+      <TouchableOpacity style={S.iconContainer} onPress={pickImage}>
+        {image ? (
+          <Image source={{ uri: image }} style={S.userImg} />
+        ) : (
+          <FontAwesome5 name="camera-retro" size={70} />
+        )}
       </TouchableOpacity>
       <Text style={S.txt}>Tire uma foto para começarmos</Text>
-      <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
-        <FontAwesome5 name="chevron-right" size={30} />
-      </TouchableOpacity>
+
+      <View style={S.nextContainer}>
+        <TouchableOpacity onPress={() => navigate()}>
+          <FontAwesome5 name="chevron-right" size={30} color="#fff" />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -24,25 +68,35 @@ export default function Home(props) {
 const S = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
-    alignItems: 'center',
-    justifyContent: 'center'
+    marginTop: 45,
+    alignItems: "center",
   },
   iconContainer: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    backgroundColor: '#ccc',
-    justifyContent: 'center',
-    alignItems: 'center',
-    alignContent: 'center',
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center"
+  },
+  userImg: {
+    width: 160,
+    height: 160,
+    borderRadius: 80
   },
   txt: {
-    fontSize: 16,
+    fontSize: 18,
     lineHeight: 20,
     marginVertical: 20,
+    color: "#fff"
   },
-  nextIconContainer: {
-    marginTop: 30
+  nextContainer: {
+    flex: 1,
+    marginTop: 30,
+    color: "#fff",
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    marginBottom: 35
   }
-})
+});

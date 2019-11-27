@@ -3,7 +3,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from "react-native";
 
 export default function Step1(props) {
-
+  const image = props.navigation.getParam('image')
   function navigate() {
     props.navigation.navigate('Step2')
   }
@@ -13,7 +13,7 @@ export default function Step1(props) {
       <View style={S.header}></View>
       <Image
         style={S.avatar}
-        source={{ uri: "https://bootdey.com/img/Content/avatar/avatar6.png" }}
+        source={{ uri: image }}
       />
       <View style={S.body}>
         <View style={S.bodyContent}>
@@ -21,7 +21,7 @@ export default function Step1(props) {
           <Text style={S.txt}>Você parece que vai ser XXXX.</Text>
           <Text style={S.txt}>Vamos conferir?</Text>
           <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
-            <FontAwesome5 name="chevron-right" size={30} />
+            <FontAwesome5 name="chevron-right" size={30} color="#fff" />
           </TouchableOpacity>
         </View>
       </View>
@@ -31,15 +31,15 @@ export default function Step1(props) {
 
 const S = StyleSheet.create({
   header: {
-    backgroundColor: "#00BFFF",
+    backgroundColor: "#ccc",
     height: 200
   },
   avatar: {
-    width: 130,
-    height: 130,
-    borderRadius: 63,
+    width: 160,
+    height: 160,
+    borderRadius: 80,
     borderWidth: 4,
-    borderColor: "white",
+    borderColor: "#fff",
     marginBottom: 10,
     alignSelf: "center",
     position: "absolute",
@@ -55,7 +55,8 @@ const S = StyleSheet.create({
   txt: {
     fontSize: 16,
     lineHeight: 20,
-    marginVertical: 20
+    marginVertical: 20,
+    color: '#fff'
   },
   nextIconContainer: {
     marginTop: 30
@@ -64,6 +65,7 @@ const S = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 20,
     lineHeight: 20,
-    marginVertical: 20
+    marginVertical: 20,
+    color: '#fff'
   }
 });

@@ -21,7 +21,7 @@ export default function Step3(props) {
       ) : (
         <>
           <TouchableOpacity style={S.iconContainer}>
-            <Entypo name="emoji-sad" size={30} />
+            <Entypo name="emoji-sad" size={70} color="#fff" />
           </TouchableOpacity>
 
           <Text style={S.txt1}>
@@ -34,7 +34,7 @@ export default function Step3(props) {
         </>
       )}
       <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
-        <FontAwesome5 name="chevron-right" size={30} />
+        <FontAwesome5 name="chevron-right" size={30} color="#fff" />
       </TouchableOpacity>
     </SafeAreaView>
   );
@@ -43,7 +43,6 @@ export default function Step3(props) {
 const S = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 15,
     alignItems: "center",
     justifyContent: "center"
   },
@@ -53,7 +52,8 @@ const S = StyleSheet.create({
     lineHeight: 20,
     marginVertical: 20,
     paddingHorizontal: 10,
-    margin:30
+    margin:30,
+    color: '#fff'
   },
   nextIconContainer: {
     marginTop: 30

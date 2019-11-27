@@ -8,16 +8,27 @@ import {
 import { FontAwesome5, Entypo } from "@expo/vector-icons";
 
 export default function Step3(props) {
+
+  const area = props.navigation.getParam('area');
+
   function navigate() {
-    props.navigation.navigate("Step3");
+    props.navigation.navigate("CompanyList");
   }
 
   return (
     <SafeAreaView style={S.container}>
-      {props.isCorrect ? (
-        <Text style={S.txt1}>
-            Temos algumas empresas/cursos gratuitos. Gostaria de dar uma olhada neles?
-        </Text>
+      {area ? (
+        <>
+          <TouchableOpacity style={S.iconContainer}>
+            <Entypo name="emoji-flirt" size={70} color="#fff" />
+          </TouchableOpacity>
+          <Text style={S.txt1}>
+              Temos algumas empresas/cursos gratuitos na area de { area }. Gostaria de dar uma olhada neles?
+          </Text>
+          <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
+            <FontAwesome5 name="chevron-right" size={30} color="#fff" />
+          </TouchableOpacity>
+        </>
       ) : (
         <>
           <TouchableOpacity style={S.iconContainer}>
@@ -31,11 +42,12 @@ export default function Step3(props) {
           <Text style={S.txt1}>
              Não temos empresas parceiras com esse perfil.
           </Text>
+          <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
+            <FontAwesome5 name="chevron-right" size={30} color="#fff" />
+          </TouchableOpacity>
         </>
       )}
-      <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
-        <FontAwesome5 name="chevron-right" size={30} color="#fff" />
-      </TouchableOpacity>
+
     </SafeAreaView>
   );
 }

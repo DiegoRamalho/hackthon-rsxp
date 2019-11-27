@@ -8,9 +8,15 @@ import {
 } from "react-native";
 import { FontAwesome5, Entypo } from "@expo/vector-icons";
 
+
+
 export default function Step2(props) {
+
+  const area = props.navigation.getParam('area');
+  const areaInicial = props.navigation.getParam('areaInicial');
+
   function navigate() {
-    props.navigation.navigate("Step3");
+    props.navigation.navigate("Step3", {area: area});
   }
 
   function navigateBack() {
@@ -19,14 +25,14 @@ export default function Step2(props) {
 
   return (
     <SafeAreaView style={S.container}>
-      {props.isCorrect ? (
+      { (area === areaInicial) ? (
         <>
-          <Text style={S.txt1}>
-            Oh, de acordo com seu perfil você realmente parece ser XXXX.
-          </Text>
-          <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
-            <FontAwesome5 name="chevron-right" size={30} color="#fff" />
+          <TouchableOpacity style={S.iconContainer}>
+            <Entypo name="emoji-happy" size={70} color="#fff" />
           </TouchableOpacity>
+          <Text style={S.txt1}>
+            Oh, de acordo com seu perfil você realmente parece ser { area }.
+          </Text>
         </>
       ) : (
         <>
@@ -35,7 +41,7 @@ export default function Step2(props) {
           </Text>
 
           <Text style={S.txtResult}>
-            XXXXXXXX
+            {areaInicial}
           </Text>
 
           <Text style={S.txt2}>Você seria</Text>
@@ -44,11 +50,15 @@ export default function Step2(props) {
             <FontAwesome5 name="user-secret" size={70} />
           </View>
 
-          <TouchableOpacity style={S.nextIconContainer} onPress={() => navigateBack()}>
-            <Entypo name="back-in-time" size={30} color="#fff" />
-          </TouchableOpacity>
+          <Text style={S.txtResult}>
+            {area}
+          </Text>
         </>
       )}
+
+      <TouchableOpacity style={S.nextIconContainer} onPress={() => navigate()}>
+        <FontAwesome5 name="chevron-right" size={30} color="#fff" />
+      </TouchableOpacity>
     </SafeAreaView>
   );
 }
@@ -70,10 +80,12 @@ const S = StyleSheet.create({
   },
   txt1: {
     fontSize: 16,
+    fontWeight:"bold",
     lineHeight: 20,
     marginVertical: 20,
     paddingHorizontal: 10,
-    color: "#fff"
+    margin:30,
+    color: '#fff'
   },
   txt2: {
     fontSize: 22,

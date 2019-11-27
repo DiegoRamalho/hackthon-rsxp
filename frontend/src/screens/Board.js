@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
+  ActivityIndicator,
   SafeAreaView,
   StyleSheet,
   Text,
@@ -11,15 +12,19 @@ import {
 import api from '../services/api'
 
 export default function Board(props) {
+  const areaInicial = props.navigation.getParam('areaInicial');
   const [data, setData]  = useState(null);
   const [options, setOptions] = useState([]);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getQuestions() {
+      setLoading(true)
       const response = await api.get('/questions')
       const { data } = response
       setData(data);
       setOptions(data.options);
+      setLoading(false);
     }
 
     getQuestions()
@@ -30,35 +35,40 @@ export default function Board(props) {
       setData(item.next);
       setOptions(item.next.options);
     }else{
-      props.navigation.navigate("Step2");
+      props.navigation.navigate("Step2", {area: item.area, areaInicial: areaInicial});
     }
   }
 
   return (
     <SafeAreaView style={styles.container}>
-
+      {isLoading? (
+        <ActivityIndicator size="large" color="#fff" />
+      ):(
+        <>
         <View style={styles.containerQuestion}>
-          <View style={styles.item}>
-            <View style={styles.balloon}>
-              <Text style={styles.txtMsg}>{data ? data.text : null}</Text>
-            </View>
+        <View style={styles.item}>
+          <View style={styles.balloon}>
+            <Text style={styles.txtMsg}>{data ? data.text : null}</Text>
           </View>
         </View>
+      </View>
 
-        <FlatList style={styles.list}
-          data={options}
-          keyExtractor= {item => String(item.code)}
-          renderItem={({item}) => {
-            return (
-                <>
-                  <TouchableOpacity style={styles.containerAnswer} onPress={() => getNextQuestion(item)}>
-                    <View style={styles.infoContainer}>
-                      <Image style={styles.imgAvatar} source={{ uri: item.image}} />
-                      <Text style={styles.txtAnswer}>{item.description}</Text>
-                    </View>
-                  </TouchableOpacity>
-                </>
-            )}}/>
+      <FlatList style={styles.list}
+        data={options}
+        keyExtractor= {item => String(item.code)}
+        renderItem={({item}) => {
+          return (
+              <>
+                <TouchableOpacity style={styles.containerAnswer} onPress={() => getNextQuestion(item)}>
+                  <View style={styles.infoContainer}>
+                    <Image style={styles.imgAvatar} source={{ uri: item.image}} />
+                    <Text style={styles.txtAnswer}>{item.description}</Text>
+                  </View>
+                </TouchableOpacity>
+              </>
+          )}}/>
+        </>
+      )}
       </SafeAreaView>
   );
 }

@@ -13,7 +13,6 @@
     "type": "git",
     "url": "git+https://github.com/DiegoRamalho/hackthon-rsxp.git"
   },
-  "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",

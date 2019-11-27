@@ -10,7 +10,11 @@ import { FontAwesome5, Entypo } from "@expo/vector-icons";
 
 export default function Step2(props) {
   function navigate() {
-    props.navigation.navigate("Step3", {isCorrect: true});
+    props.navigation.navigate("Step3");
+  }
+
+  function navigateBack() {
+    props.navigation.navigate("Board");
   }
 
   return (
@@ -40,7 +44,7 @@ export default function Step2(props) {
             <FontAwesome5 name="user-secret" size={70} />
           </View>
 
-          <TouchableOpacity style={S.nextIconContainer} onPress={() => {}}>
+          <TouchableOpacity style={S.nextIconContainer} onPress={() => navigateBack()}>
             <Entypo name="back-in-time" size={30} color="#fff" />
           </TouchableOpacity>
         </>

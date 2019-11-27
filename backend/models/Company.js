@@ -1,24 +1,34 @@
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
-var CompanySchema = new mongoose.Schema({
-  name: {type: String, lowercase: true, unique: true},
-  email: String,
-  image: String,
-  bio: String, 
-  video: String
- }, {timestamps: true});
+/** Declares the Company's schema */
+const CompanySchema = new mongoose.Schema({
+                                            /** Company's biography */
+                                            bio: String,
+                                            /** Company's e-mail */
+                                            email: String,
+                                            /** Company's logo */
+                                            image: String,
+                                            /** Company's name */
+                                            name: {type: String, lowercase: true, unique: true},
+                                            /** Company's video */
+                                            video: String
+                                          }, {timestamps: true});
 
-CompanySchema.plugin(uniqueValidator, {message: 'is already taken'});
+/** Checks for unique keys */
+CompanySchema.plugin(uniqueValidator, {message: 'This company is already taken'});
 
-CompanySchema.methods.toJSON = function(){
+/** Converts the Company to JSON */
+CompanySchema.methods.toJSON = function toJson() {
   return {
-    name: this.name,
+    bio: this.bio,
+    id: this._id,
     image: this.image,
     email: this.email,
-    bio: this.bio,
-    video: this.video,
-    id: this._id
+    name: this.name,
+    video: this.video
   };
 };
+
+/** Compiles the Company's schema */
 mongoose.model('Company', CompanySchema);

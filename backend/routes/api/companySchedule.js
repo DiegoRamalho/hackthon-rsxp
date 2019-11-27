@@ -1,23 +1,33 @@
-var router = require('express').Router();
-var mongoose = require('mongoose');
-var CompanySchedule = mongoose.model('CompanySchedule');
-var Company = mongoose.model('Company');
+const router = require("express").Router();
+const mongoose = require("mongoose");
+const CompanySchedule = mongoose.model("CompanySchedule");
+const Company = mongoose.model("Company");
 
-// return a list of tags
-router.get('/', function(req, res, next) {
-  CompanySchedule.find().then(function(companySchedules){
-    return res.json({companySchedules: companySchedules});
-  }).catch(next);
+/** GET: / => Returns all CompanySchedules */
+router.get("/", (req, res, next) => {
+  CompanySchedule
+    .find()
+    .populate("company")
+    .then(companySchedules => {
+      return res.json({companySchedules: companySchedules});
+    })
+    .catch(next);
 });
 
-router.post('/', function(req, res, next){
-  Company.findById(req.body.companySchedule.id_company).then (company => {
-    var companySchedule = new CompanySchedule({... req.body.companySchedule, company : company});
-  
-    companySchedule.save().then(function(){
-      return res.json({CompanySchedule: companySchedule.toJSON()});
-    }).catch(next);
+/** POST: / => Creates a new CompanySchedule */
+router.post("/", (req, res, next) => {
+  Company.findById(req.body.companySchedule.id_company).then(company => {
+    if (!company) {
+      return res.sendStatus(404);
+    }
+    const companySchedule = new CompanySchedule({...req.body.companySchedule, company: company});
+    companySchedule
+      .save()
+      .then(() => {
+        return res.json({companySchedule: companySchedule.toJSON()});
+      })
+      .catch(next);
   });
- 
 });
+
 module.exports = router;

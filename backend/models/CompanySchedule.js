@@ -1,17 +1,23 @@
-var mongoose = require('mongoose');
-var uniqueValidator = require('mongoose-unique-validator');
+const mongoose = require("mongoose");
 
-var CompanyScheduleSchema = new mongoose.Schema({
-  date: Date,
-  area: String,
-  company: {type: mongoose.Schema.Types.ObjectId, ref: "Company"}
- }, {timestamps: true});
+/** Declares the CompanySchedule's schema */
+const CompanyScheduleSchema = new mongoose.Schema({
+                                                    /** Area requested by the Company */
+                                                    area: String,
+                                                    /** Related Company */
+                                                    company: {type: mongoose.Schema.Types.ObjectId, ref: "Company"},
+                                                    /** Date to schedule */
+                                                    date: Date
+                                                  }, {timestamps: true});
 
-CompanyScheduleSchema.methods.toJSON = function(){
+/** Converts the Company Schedule to JSON */
+CompanyScheduleSchema.methods.toJSON = function toJson() {
   return {
-    date: this.date,
     area: this.area,
-    company: this.company.toJSON()
+    company: this.company? this.company.toJSON() : undefined,
+    date: this.date
   };
 };
-mongoose.model('CompanySchedule', CompanyScheduleSchema);
+
+/** Compiles the CompanySchedule's schema */
+mongoose.model("CompanySchedule", CompanyScheduleSchema);

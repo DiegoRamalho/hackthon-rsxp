@@ -1,78 +1,93 @@
-var router = require('express').Router();
-var mongoose = require('mongoose');
-var Question = mongoose.model('Question');
-var QuestionOption = mongoose.model('QuestionOption');
+const router = require("express").Router();
+const mongoose = require("mongoose");
+const Question = mongoose.model("Question");
+const QuestionOption = mongoose.model("QuestionOption");
 
-// return a list of tags
-router.get('/', function (req, res, next) {
-  Question.findOne()
+/** GET: / => Returns the main Question */
+router.get("/", (req, res, next) => {
+  Question
+    .findOne()
     .exec((err, question) => {
       return res.json(questionToJSON(question));
     });
 });
 
-router.get('/clear', function (req, res, next) {
-  Question.remove({}).then(() => {
-    return res.json({"ok": true});
-  });
-
+/** POST: / => Creates a new Question */
+router.post("/", (req, res, next) => {
+  const question = parseQuestion(req.body.question);
+  return question
+    .save()
+    .then(() => {
+      return res.json({question: questionToJSON(question)});
+    })
+    .catch(next);
 });
 
-function parseQuestion(it) {
+/**
+ * Parse the json to model
+ * @param it => API object
+ * @returns {Model}
+ */
+const parseQuestion = it => {
   if (it) {
     let options;
     if (it.options) {
-      options = it.options.map(option => {
-        return new QuestionOption({
-                                    code: option.code,
-                                    image: option.image,
-                                    profession: option.profession,
-                                    next: parseQuestion(option.next)
-                                  });
-      });
+      options = it.options
+        .map(option => {
+          return new QuestionOption({
+                                      area: option.area,
+                                      code: option.code,
+                                      image: option.image,
+                                      next: parseQuestion(option.next)
+                                    });
+        });
     }
     return new Question({
                           code: it.code,
-                          text: it.text,
-                          options: options
+                          options: options,
+                          text: it.text
                         });
   }
-}
+};
 
-router.post('/', function (req, res, next) {
-  const question = parseQuestion(req.body.question);
-  return question.save().then(function () {
-    return res.json({question: questionToJSON(question)});
-  }).catch(next);
-});
-
-function questionToJSON(question) {
+/**
+ * Parses the Question to JSON
+ * @param question
+ * @returns {{code: *, text: *, options: *}}
+ */
+const questionToJSON = question => {
   if (question) {
     let options;
     if (question.options) {
-      options = question.options.map(it => {
-        if (it) {
-          return questionOptionToJSON(it)
-        }
-      }).filter(it => it);
+      options = question.options
+        .map(it => {
+          if (it) {
+            return questionOptionToJSON(it)
+          }
+        })
+        .filter(it => it);
     }
 
-    const result = {
+    return {
       code: question.code,
       text: question.text,
       options: options
     };
-    return result;
   }
-}
+};
 
-function questionOptionToJSON(questionOption) {
+/**
+ * Parses QuestionsOption to JSON
+ * @param questionOption
+ * @returns {{area: *, code: *, image: string | SVGImageElement, next: *}}
+ */
+const questionOptionToJSON = questionOption => {
   return {
+    area: questionOption.area,
     code: questionOption.code,
     image: questionOption.image,
-    profession: questionOption.profession,
     next: questionOption.next ? questionToJSON(questionOption.next) : undefined
   };
-}
+};
 
 module.exports = router;

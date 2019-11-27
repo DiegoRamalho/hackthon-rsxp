@@ -1,19 +1,23 @@
-var mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const UserSchema = require("./User");
 
-var CommentSchema = new mongoose.Schema({
-  body: String,
-  author: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-  article: { type: mongoose.Schema.Types.ObjectId, ref: 'Article' }
-}, {timestamps: true});
+/** Declares the Comment's schema */
+const CommentSchema = new mongoose.Schema({
+                                            /** User that creates the Comment */
+                                            author: UserSchema,
+                                            /** Comment's message*/
+                                            body: String,
+                                          }, {timestamps: true});
 
-// Requires population of author
-CommentSchema.methods.toJSONFor = function(user){
+/** Converts the Comment to JSON */
+CommentSchema.methods.toJSON = function toJson() {
   return {
-    id: this._id,
+    author: this.author.toJSON(),
     body: this.body,
     createdAt: this.createdAt,
-    author: this.author.toProfileJSONFor(user)
+    id: this._id,
   };
 };
 
-mongoose.model('Comment', CommentSchema);
+/** Compiles the Comment's schema */
+mongoose.model("Comment", CommentSchema);

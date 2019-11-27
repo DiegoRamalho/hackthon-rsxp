@@ -54,7 +54,7 @@ export default function Board(props) {
                   <TouchableOpacity style={styles.containerAnswer} onPress={() => getNextQuestion(item)}>
                     <View style={styles.infoContainer}>
                       <Image style={styles.imgAvatar} source={{ uri: item.image}} />
-                      <Text style={{flex: 1, flexWrap: 'wrap'}}>{item.description}</Text>
+                      <Text style={styles.txtAnswer}>{item.description}</Text>
                     </View>
                   </TouchableOpacity>
                 </>
@@ -71,10 +71,10 @@ const styles = StyleSheet.create({
     marginBottom: 6
   },
   containerAnswer: {
-    padding: 15,
+    padding: 5,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#ddd',
+    borderColor: '#999',
     marginBottom: 6
   },
   infoContainer: {
@@ -110,5 +110,10 @@ const styles = StyleSheet.create({
     textAlign:"center",
     fontSize:20,
     fontWeight:"bold"
+  },
+  txtAnswer:{
+    color:"#fff",
+    flex: 1,
+    flexWrap: 'wrap'
   }
 });

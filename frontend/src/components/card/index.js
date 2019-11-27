@@ -2,19 +2,24 @@ import React from "react";
 import { Image, StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { FontAwesome5 } from "@expo/vector-icons";
 
-export default function Card() {
+export default function Card({ post }) {
+
+  function like(post) {
+
+  }
+
   return (
     <View style={S.container}>
       <View style={S.infoContainer}>
         <Image style={S.imgAvatar} source={{ uri: 'https://api.adorable.io/avatars/100/user-avatar.png' }} />
-        <Text style={{flex: 1, flexWrap: 'wrap'}}>Seu amigo Emanoel irá fazer uma visita a Google.</Text>
+        <Text style={S.txtComent}>Seu amigo Emanoel irá fazer uma visita a Google.</Text>
       </View>
       <View style={S.btnContainer}>
-        <TouchableOpacity onPress={() => {}} style={{marginRight: 10}}>
-          <FontAwesome5 name="heart" size={23} />
+        <TouchableOpacity onPress={() => like(post)} style={{marginRight: 10}}>
+          <FontAwesome5 name="heart" size={23} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => {}}>
-          <FontAwesome5 name="comment" size={23} />
+          <FontAwesome5 name="comment" size={23} color="#fff" />
         </TouchableOpacity>
       </View>
     </View>
@@ -26,7 +31,7 @@ const S = StyleSheet.create({
     padding: 15,
     borderWidth: 1,
     borderRadius: 5,
-    borderColor: '#ddd',
+    borderColor: '#999',
     marginBottom: 6
   },
   infoContainer: {
@@ -42,5 +47,10 @@ const S = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     marginTop: 15,
+  },
+  txtComent:{
+    color:"#fff",
+    flex: 1,
+    flexWrap: 'wrap'
   }
 });

@@ -5,12 +5,11 @@ import { SafeAreaView, StyleSheet, Text, View, Image, TouchableOpacity } from "r
 export default function Step1(props) {
   const image = props.navigation.getParam('image')
   function navigate() {
-    props.navigation.navigate('Step2')
+    props.navigation.navigate('Board')
   }
 
   return (
     <SafeAreaView style={S.container}>
-      <View style={S.header}></View>
       <Image
         style={S.avatar}
         source={{ uri: image }}
@@ -30,20 +29,19 @@ export default function Step1(props) {
 }
 
 const S = StyleSheet.create({
-  header: {
-    backgroundColor: "#ccc",
-    height: 200
+  container: {
+    flex: 1,
+    marginTop: 45,
+    alignItems: "center",
   },
   avatar: {
     width: 160,
     height: 160,
     borderRadius: 80,
-    borderWidth: 4,
-    borderColor: "#fff",
-    marginBottom: 10,
-    alignSelf: "center",
-    position: "absolute",
-    marginTop: 130
+    backgroundColor: "#fff",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center"
   },
   body: {
     marginTop: 40

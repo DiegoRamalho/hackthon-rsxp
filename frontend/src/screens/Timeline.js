@@ -94,8 +94,8 @@ const S = StyleSheet.create({
     marginTop: Platform.OS == 'android' ? 24 : 0
   },
   companyContainer: {
-    height: 70,
-    backgroundColor: '#3498ff',
+    height: 90,
+    paddingVertical: 10,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center'

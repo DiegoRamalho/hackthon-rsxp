@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Platform
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 
 import companyAvatar from "../../assets/company-avatar.png";
 
@@ -18,31 +19,31 @@ const DATA = [
     name: "Projetus TI",
     email: "test@mail.com",
     image: companyAvatar,
-    bio: '',
-    video: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+    bio: "",
+    video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
   },
   {
     id: 2,
     name: "Projetus TI",
     email: "test@mail.com",
     image: companyAvatar,
-    bio: '',
-    video: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+    bio: "",
+    video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
   },
   {
     id: 3,
     name: "Projetus TI",
     email: "test@mail.com",
     image: companyAvatar,
-    bio: 'Much of Video and Audio have common APIs that are documented in AV documentation. This page covers video-specific props and APIs. We encourage you to skim through this document to get basic video working, and then move on to AV documentation for more advanced functionality. The audio experience of video (such as whether to interrupt music already playing in another app, or whether to play sound while the phone is on silent mode) can be customized using the Audio API.',
-    video: 'http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4'
+    bio:
+      "Much of Video and Audio have common APIs that are documented in AV documentation. This page covers video-specific props and APIs. We encourage you to skim through this document to get basic video working, and then move on to AV documentation for more advanced functionality. The audio experience of video (such as whether to interrupt music already playing in another app, or whether to play sound while the phone is on silent mode) can be customized using the Audio API.",
+    video: "http://d23dyxeqlo5psv.cloudfront.net/big_buck_bunny.mp4"
   }
 ];
 
 export default function CompanyList(props) {
-
   function navigate(company) {
-    props.navigation.navigate('CompanyDetail', { company })
+    props.navigation.navigate("CompanyDetail", { company });
   }
 
   function renderCompany({ item }) {
@@ -62,20 +63,26 @@ export default function CompanyList(props) {
   }
 
   return (
-    <SafeAreaView style={S.container}>
-      <FlatList
-        data={DATA}
-        keyExtractor={item => String(item.id)}
-        renderItem={renderCompany}
-      />
-    </SafeAreaView>
+    <LinearGradient
+      colors={["#282a36", "#44475a", "#44475a"]}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView style={S.container}>
+        <FlatList
+          style={{ flex: 1 }}
+          data={DATA}
+          keyExtractor={item => String(item.id)}
+          renderItem={renderCompany}
+        />
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
 const S = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: Platform.OS == "android" ? 30 : 6
+    marginTop: Platform.OS == "android" ? 35 : 10
   },
   companyContainer: {
     flexDirection: "row",
@@ -83,8 +90,8 @@ const S = StyleSheet.create({
     marginHorizontal: 15,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    borderColor: "#ccc",
+    borderRadius: 5
   },
   companyImg: {
     width: 60,
@@ -96,10 +103,12 @@ const S = StyleSheet.create({
     flexDirection: "column"
   },
   companyName: {
-    fontSize: 16
+    fontSize: 16,
+    color: "#fff",
+    fontWeight: 'bold'
   },
   companyEmail: {
     fontSize: 14,
-    color: "#aaa"
+    color: "#fff"
   }
 });

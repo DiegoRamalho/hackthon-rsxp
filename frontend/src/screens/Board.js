@@ -8,80 +8,23 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-
-const DATA = {
-  code: 1,
-  text: "Question 1",
-  options: [
-    {
-      code: 1,
-      description:"Answer 1",
-      image: "https://api.adorable.io/avatars/85/test@adorable.io.png",
-      next:{
-          code: 2,
-          text: "Question 2",
-          options: [
-            {
-              code: 2.1,
-              description:"Answer 2.1",
-              image: "https://api.adorable.io/avatars/85/test@adorable.io.png"
-            },
-            {
-              code: 2.2,
-              description:"Answer 2.2",
-              image: "https://api.adorable.io/avatars/85/test@adorable.io.png"
-            },
-            {
-              code: 2.3,
-              description:"Answer 2.3",
-              image: "https://api.adorable.io/avatars/85/test@adorable.io.png",
-            }
-          ]
-      }
-    },
-    {
-      code: 2,
-      description:"Answer 2",
-      image: "https://api.adorable.io/avatars/85/test@adorable.io.png",
-      next:{
-        code: 3,
-        text: "Question 3",
-        options: [
-          {
-            code: 3.1,
-            description:"Answer 3.1",
-            image: "https://api.adorable.io/avatars/85/test@adorable.io.png"
-          },
-          {
-            code: 3.2,
-            description:"Answer 3.2",
-            image: "https://api.adorable.io/avatars/85/test@adorable.io.png"
-          },
-          {
-            code: 3.3,
-            description:"Answer 3.3",
-            image: "https://api.adorable.io/avatars/85/test@adorable.io.png",
-          }
-        ]
-    }
-    },
-    {
-      code: 3,
-      description:"Answer 3",
-      image: "https://api.adorable.io/avatars/85/ts@adorable.io.png" ,
-    }
-  ]
-};
+import api from '../services/api'
 
 export default function Board(props) {
 
   const [data, setData]  = useState(DATA);
   const [options, setOptions] = useState(DATA.options);
 
-  // useEffect(() => {
-  //   setData(DATA);
-  //   setOptions(DATA.options);
-  // }, [])
+  useEffect(() => {
+    async function getQuestions() {
+      const response = await api.get('/questions')
+      const { data } = response
+      setData(data);
+      setOptions(data.options);
+    }
+
+    getQuestions()
+  }, [])
 
   function getNextQuestion(item){
     if(item && item.next){

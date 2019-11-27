@@ -8,33 +8,39 @@ import {
   ScrollView
 } from "react-native";
 import { Video } from "expo-av";
+import { LinearGradient } from "expo-linear-gradient";
 import { FontAwesome5 } from "@expo/vector-icons";
 
 export default function CompanyDetail(props) {
   const company = props.navigation.getParam("company");
   return (
-    <SafeAreaView>
-      <Video
-        source={{ uri: company.video }}
-        rate={1.0}
-        volume={1.0}
-        resizeMode="cover"
-        isLooping
-        useNativeControls={true}
-        style={{ height: 200 }}
-      />
+    <LinearGradient
+      colors={["#282a36", "#44475a", "#44475a"]}
+      style={{ flex: 1 }}
+    >
+      <SafeAreaView>
+        <Video
+          source={{ uri: company.video }}
+          rate={1.0}
+          volume={1.0}
+          resizeMode="cover"
+          isLooping
+          useNativeControls={true}
+          style={{ height: 200 }}
+        />
 
-      <View style={S.infoContainer}>
-        <Text style={S.companyName}>{company.name}</Text>
-        <Text style={S.companyEmail}>{company.email}</Text>
-        <ScrollView>
-          <Text style={S.companyBio}>{company.bio}</Text>
-        </ScrollView>
-      </View>
-      <TouchableOpacity style={S.actBtn} onPress={() => {}}>
-        <FontAwesome5 name="plus" size={25} color="#fff" />
-      </TouchableOpacity>
-    </SafeAreaView>
+        <View style={S.infoContainer}>
+          <Text style={S.companyName}>{company.name}</Text>
+          <Text style={S.companyEmail}>{company.email}</Text>
+          <ScrollView>
+            <Text style={S.companyBio}>{company.bio}</Text>
+          </ScrollView>
+        </View>
+        <TouchableOpacity style={S.actBtn} onPress={() => {}}>
+          <FontAwesome5 name="plus" size={25} color="#fff" />
+        </TouchableOpacity>
+      </SafeAreaView>
+    </LinearGradient>
   );
 }
 
@@ -44,11 +50,13 @@ const S = StyleSheet.create({
   },
   companyName: {
     fontSize: 20,
-    marginBottom: 5
+    marginBottom: 5,
+    color: "#fff",
+    fontWeight: 'bold'
   },
   companyEmail: {
     fontSize: 18,
-    color: "#aaa",
+    color: "#fff",
     marginBottom: 15
   },
   companyBio: {
@@ -63,6 +71,6 @@ const S = StyleSheet.create({
     justifyContent: "center",
     right: 20,
     bottom: 20,
-    backgroundColor: '#3498ff'
+    backgroundColor: "#ff5555"
   }
 });

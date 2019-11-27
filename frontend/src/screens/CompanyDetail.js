@@ -34,11 +34,13 @@ export default function CompanyDetail(props) {
         />
 
         <View style={S.infoContainer}>
-          <Text style={S.companyName}>{company.name}</Text>
-          <Text style={S.companyEmail}>{company.email}</Text>
           <ScrollView>
+            <Text style={S.companyName}>{company.name}</Text>
+            <Text style={S.companyEmail}>{company.email}</Text>
             <Text style={S.companyBio}>{company.bio}</Text>
-            <Image source={calendar} style={{ marginTop: 30, height: 200 }} />
+            <View style={{ justifyContent: "center", alignItems: "center" }}>
+              <Image source={calendar} style={{ marginTop: 30, height: 200 }} />
+            </View>
           </ScrollView>
         </View>
         <TouchableOpacity style={S.actBtn} onPress={() => {}}>

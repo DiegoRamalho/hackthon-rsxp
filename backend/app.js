@@ -6,7 +6,7 @@ const express = require("express"),
 
 const DEFAULT_PORT = 3000;
 const isProduction = process.env.NODE_ENV === "production";
-const mongoURL = isProduction ? process.env.MONGODB_URI : "mongodb://192.168.99.100:27017/vocation";
+const mongoURL = isProduction ? process.env.MONGODB_URI : "mongodb://192.168.99.100:27017/vocation_1";
 
 /** Create global app object */
 const app = express();

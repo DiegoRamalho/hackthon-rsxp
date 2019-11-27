@@ -4,7 +4,8 @@ import {
   StyleSheet,
   Text,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from "react-native";
 import { FontAwesome5, Entypo } from "@expo/vector-icons";
 import img from '../../assets/img2.jpg'
@@ -51,10 +52,6 @@ export default function Step2(props) {
             style={S.avatar}
             source={img}
           />
-
-          <View style={S.iconResult}>
-            <FontAwesome5 name="user-secret" size={70} />
-          </View>
 
           <Text style={S.txtResult}>
             {area}

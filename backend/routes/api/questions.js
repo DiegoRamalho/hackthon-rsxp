@@ -37,6 +37,7 @@ const parseQuestion = it => {
           return new QuestionOption({
                                       area: option.area,
                                       code: option.code,
+                                      description: option.description,
                                       image: option.image,
                                       next: parseQuestion(option.next)
                                     });
@@ -85,6 +86,7 @@ const questionOptionToJSON = questionOption => {
   return {
     area: questionOption.area,
     code: questionOption.code,
+    description: questionOption.description,
     image: questionOption.image,
     next: questionOption.next ? questionToJSON(questionOption.next) : undefined
   };
